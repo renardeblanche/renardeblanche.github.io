@@ -1,0 +1,16 @@
+.tcf-layout{
+  display:flex;
+  gap:3rem;
+  margin:2rem 0;
+  align-items:flex-start;
+}
+.tcf-left{ flex:65; min-width:0; }
+.tcf-right {
+  background: #f7f7f7;
+  padding: 1rem;
+  border-radius: 6px;
+}
+@media (max-width: 768px){
+  .tcf-layout{ flex-direction:column; gap:1.25rem; }
+  .tcf-right{ font-size:1em; opacity:1; }
+}
