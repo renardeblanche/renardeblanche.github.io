@@ -1,0 +1,158 @@
+/*
+ * Sirkku Igloo custom layer for Hexo Theme Stellar
+ * Quiet, paper-like, sage/lavender visual language.
+ */
+
+:root,
+:root[data-theme="light"] {
+  --background: #F7F5EF;
+  --card: #FCFBF7;
+  --block: rgba(89, 109, 96, 0.065);
+  --block-border: rgba(89, 109, 96, 0.11);
+  --text: #3F4541;
+  --text-p1: rgba(63, 69, 65, 0.84);
+  --text-p2: rgba(63, 69, 65, 0.72);
+  --text-p3: rgba(63, 69, 65, 0.54);
+  --text-p4: rgba(63, 69, 65, 0.42);
+  --bg-a20: rgba(252, 251, 247, 0.35);
+  --bg-a50: rgba(252, 251, 247, 0.62);
+  --bg-a60: rgba(252, 251, 247, 0.72);
+  --bg-a75: rgba(252, 251, 247, 0.84);
+  --bg-a100: #FCFBF7;
+}
+
+:root[data-theme="dark"] {
+  --background: #171A18;
+  --card: #222724;
+  --block: rgba(225, 231, 224, 0.065);
+  --block-border: rgba(225, 231, 224, 0.11);
+  --text: #E2E7E1;
+  --text-p1: rgba(226, 231, 225, 0.84);
+  --text-p2: rgba(226, 231, 225, 0.72);
+  --text-p3: rgba(226, 231, 225, 0.54);
+  --text-p4: rgba(226, 231, 225, 0.42);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --background: #171A18;
+    --card: #222724;
+    --block: rgba(225, 231, 224, 0.065);
+    --block-border: rgba(225, 231, 224, 0.11);
+  }
+}
+
+body {
+  letter-spacing: 0.005em;
+}
+
+/* Give the identity area a softer, bookish voice without changing body legibility. */
+.header .logo-wrap .title,
+.post-list .post-card .post-title,
+article.md-text h1,
+article.md-text h2,
+article.md-text h3,
+.md-text.content h1,
+.md-text.content h2,
+.md-text.content h3 {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Noto Serif CJK SC", "Songti SC", "STSong", Georgia, serif;
+}
+
+.header .logo-wrap .title {
+  letter-spacing: 0.015em;
+}
+
+.post-list .post-card-wrap {
+  box-shadow: 0 8px 28px rgba(63, 69, 65, 0.06);
+}
+
+.post-list .post-card {
+  border: 1px solid rgba(89, 109, 96, 0.09);
+}
+
+.post-list .post-card:hover .post-title::after {
+  height: 7px;
+  opacity: 0.28;
+}
+
+.md-text.content {
+  line-height: 1.82;
+}
+
+.md-text.content > p,
+.md-text.content > ul,
+.md-text.content > ol {
+  max-width: 46rem;
+}
+
+.md-text.content h1,
+.md-text.content h2,
+.md-text.content h3 {
+  letter-spacing: 0.01em;
+}
+
+.md-text.content h2 {
+  margin-top: 2.4em;
+}
+
+.md-text.content blockquote {
+  border-left-color: #819886;
+  background: rgba(129, 152, 134, 0.07);
+  border-radius: 0 12px 12px 0;
+}
+
+.md-text.content a:not(.tag-plugin):not(.button) {
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+/* Keep the old bilingual/TCF study layout working after leaving Hingle. */
+.tcf-layout {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 0;
+  align-items: flex-start;
+}
+
+.tcf-left {
+  flex: 65;
+  min-width: 0;
+}
+
+.tcf-right {
+  flex: 35;
+  min-width: 14rem;
+  background: var(--block);
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--block-border);
+  border-radius: 14px;
+}
+
+/* Make dense linguistic tables feel less spreadsheet-like. */
+.md-text.content table {
+  font-size: 0.94em;
+}
+
+.md-text.content th {
+  font-weight: 650;
+}
+
+/* The welcome widget should read like a note pinned inside the igloo. */
+.widget-wrapper.markdown .widget-body p {
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .tcf-layout {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .tcf-right {
+    min-width: 0;
+    width: 100%;
+    font-size: 1em;
+    opacity: 1;
+    box-sizing: border-box;
+  }
+}
