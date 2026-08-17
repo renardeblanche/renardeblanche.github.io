@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Flag of Spain">
+  <rect width="900" height="600" fill="#aa151b"/>
+  <rect y="150" width="900" height="300" fill="#f1bf00"/>
+  <g transform="translate(285 300)" opacity=".96">
+    <rect x="-24" y="-58" width="48" height="92" rx="4" fill="#aa151b" stroke="#7d1320" stroke-width="4"/>
+    <rect x="-18" y="-50" width="36" height="23" fill="#f1bf00"/>
+    <circle cx="0" cy="-5" r="12" fill="#f1bf00"/>
+    <path d="M-32 42h64" stroke="#7d1320" stroke-width="6" stroke-linecap="round"/>
+    <path d="M-12-68h24l8 12h-40z" fill="#7d1320"/>
+  </g>
+</svg>

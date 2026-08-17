@@ -1,0 +1,698 @@
+/* Sirkku Igloo · World Travel Journal v2
+ * Natural cabin × Japanese bibliophile travel notebook.
+ */
+
+.world-travel {
+  --travel-paper: #f8f3e8;
+  --travel-paper-deep: #eee5d4;
+  --travel-moss: #71816a;
+  --travel-moss-dark: #566351;
+  --travel-wood: #a48668;
+  --travel-wood-dark: #806851;
+  --travel-ink: #707987;
+  --travel-line: rgba(124, 103, 83, .16);
+  --travel-muted: rgba(61, 64, 57, .62);
+  max-width: 72rem;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.world-travel__intro {
+  max-width: 43rem;
+  margin: .4rem auto 2rem;
+  text-align: center;
+}
+
+.world-travel__eyebrow,
+.world-travel__detail-kicker,
+.world-travel__section-heading > span,
+.world-travel__visit-date {
+  margin: 0 0 .5rem;
+  color: var(--travel-ink);
+  font-size: .72rem;
+  letter-spacing: .16em;
+}
+
+.world-travel__intro h1,
+.world-travel__detail h2,
+.world-travel__detail h3,
+.world-travel__detail h4,
+.world-travel__section-heading h2 {
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", "Noto Serif CJK SC", "Songti SC", serif;
+}
+
+.world-travel__intro h1 {
+  margin: 0 0 .85rem;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: var(--travel-moss-dark);
+}
+
+.world-travel__intro > p:last-child {
+  margin: 0 auto;
+  color: var(--text-p2, var(--travel-muted));
+  line-height: 1.9;
+}
+
+/* Stats */
+.world-travel__stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.45rem;
+  margin: 0 auto 1.5rem;
+}
+
+.world-travel__stat {
+  display: flex;
+  align-items: baseline;
+  gap: .45rem;
+}
+
+.world-travel__stat-number {
+  font-family: "Iowan Old Style", "Yu Mincho", serif;
+  color: var(--travel-moss-dark);
+  font-size: 1.8rem;
+}
+
+.world-travel__stat-label {
+  color: var(--text-p2, var(--travel-muted));
+  font-size: .82rem;
+}
+
+.world-travel__stat-divider {
+  width: 1px;
+  height: 1.6rem;
+  background: var(--travel-line);
+}
+
+/* Map */
+.world-travel__map-card {
+  padding: 1rem 1rem .55rem;
+  border: 1px solid var(--travel-line);
+  border-radius: 18px;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.18), rgba(164,134,104,.025)),
+    var(--card, var(--travel-paper));
+  box-shadow: 0 13px 36px rgba(74,63,49,.055);
+}
+
+.world-travel__map-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: .1rem .25rem .45rem;
+}
+
+.world-travel__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+  color: var(--text-p2, var(--travel-muted));
+  font-size: .78rem;
+}
+
+.world-travel__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: .36rem;
+}
+
+.world-travel__swatch {
+  width: .72rem;
+  height: .72rem;
+  border-radius: 3px;
+  border: 1px solid rgba(85,98,81,.12);
+}
+
+.world-travel__swatch--visited { background: var(--travel-moss); }
+.world-travel__swatch--unvisited { background: #ddd8ca; }
+
+.world-travel__journal-link,
+.world-travel__detail-link,
+.world-travel__visit-link,
+.world-travel__place-header a {
+  color: var(--travel-ink);
+  font-size: .8rem;
+  text-decoration: none;
+}
+
+.world-travel__journal-link:hover,
+.world-travel__detail-link:hover,
+.world-travel__visit-link:hover,
+.world-travel__place-header a:hover { color: var(--travel-moss-dark); }
+
+.world-travel__map-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 22rem;
+}
+
+.world-travel__map {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 22rem;
+}
+
+.world-travel__sphere { fill: transparent; }
+
+.world-travel__country {
+  fill: #ddd8ca;
+  stroke: rgba(250,246,237,.92);
+  stroke-width: .7;
+  vector-effect: non-scaling-stroke;
+  transition: fill .18s ease, opacity .18s ease, stroke .18s ease, stroke-width .18s ease;
+  outline: none;
+}
+
+.world-travel__country:hover { fill: #cbc5b7; }
+
+.world-travel__country.is-visited {
+  fill: var(--travel-moss);
+  cursor: pointer;
+}
+
+.world-travel__country.is-visited:hover,
+.world-travel__country.is-visited:focus {
+  fill: var(--travel-moss-dark);
+}
+
+.world-travel__country.is-selected {
+  fill: var(--travel-moss-dark);
+  stroke: var(--travel-ink);
+  stroke-width: 1.35;
+}
+
+.world-travel__loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--text-p3, var(--travel-muted));
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  letter-spacing: .08em;
+}
+
+.world-travel__tooltip {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  padding: .38rem .58rem;
+  border: 1px solid var(--travel-line);
+  border-radius: 7px;
+  background: rgba(250,246,237,.95);
+  color: #4b504a;
+  box-shadow: 0 5px 16px rgba(74,63,49,.09);
+  font-size: .75rem;
+  transition: opacity .12s ease, transform .12s ease;
+}
+
+.world-travel__tooltip.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Country notebook */
+.world-travel__detail {
+  margin: 1.35rem 0 2.7rem;
+  padding: 1.35rem 1.45rem 1.55rem;
+  border: 1px solid rgba(124,103,83,.14);
+  border-left: 3px solid var(--travel-wood);
+  border-radius: 0 14px 14px 0;
+  background:
+    linear-gradient(90deg, rgba(164,134,104,.065), rgba(111,128,104,.018) 25%, transparent 65%),
+    repeating-linear-gradient(0deg, rgba(124,103,83,.012) 0, rgba(124,103,83,.012) 1px, transparent 1px, transparent 4px),
+    var(--card, var(--travel-paper));
+  box-shadow: 0 10px 30px rgba(74,63,49,.035);
+}
+
+.world-travel__detail-empty,
+.world-travel__country-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.world-travel__bookmark {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2.55rem;
+  background: linear-gradient(180deg, var(--travel-wood), var(--travel-wood-dark));
+  color: #fffaf0;
+  border-radius: 4px 4px 9px 9px;
+  box-shadow: 0 4px 10px rgba(90,70,52,.09);
+  font-family: "Yu Mincho", serif;
+  font-size: .86rem;
+}
+
+.world-travel__country-heading h2,
+.world-travel__detail-empty h2 {
+  margin: .05rem 0 .25rem;
+  color: var(--travel-moss-dark);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-weight: 500;
+}
+
+.world-travel__country-meta {
+  margin: .1rem 0 .7rem;
+  color: var(--travel-ink);
+  font-size: .78rem;
+  letter-spacing: .05em;
+}
+
+.world-travel__country-note,
+.world-travel__detail-empty p,
+.world-travel__visit-note,
+.world-travel__place-note,
+.world-travel__no-city,
+.world-travel__journal-empty {
+  color: var(--text-p2, var(--travel-muted));
+  line-height: 1.8;
+}
+
+.world-travel__country-note { margin: .35rem 0 0; }
+
+/* Timeline */
+.world-travel__timeline {
+  position: relative;
+  margin: 1.55rem 0 0 .95rem;
+  padding-left: 1.6rem;
+}
+
+.world-travel__timeline::before {
+  content: "";
+  position: absolute;
+  left: .34rem;
+  top: .7rem;
+  bottom: .7rem;
+  width: 1px;
+  background: linear-gradient(var(--travel-wood), rgba(112,121,135,.28), rgba(113,129,106,.18));
+}
+
+.world-travel__visit {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 1.65rem;
+}
+
+.world-travel__visit:last-child { margin-bottom: .25rem; }
+
+.world-travel__visit-marker {
+  position: absolute;
+  left: -1.76rem;
+  top: .2rem;
+  display: grid;
+  place-items: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  border: 1px solid rgba(164,134,104,.25);
+  border-radius: 999px;
+  background: var(--card, var(--travel-paper));
+  color: var(--travel-wood-dark);
+  box-shadow: 0 0 0 4px var(--card, var(--travel-paper));
+  font-family: "Iowan Old Style", "Yu Mincho", serif;
+  font-size: .58rem;
+}
+
+.world-travel__visit-body {
+  width: 100%;
+  min-width: 0;
+  padding: 0 0 .35rem;
+}
+
+.world-travel__visit-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: .7rem;
+}
+
+.world-travel__visit-date {
+  margin-bottom: .12rem;
+  font-size: .66rem;
+}
+
+.world-travel__visit-header h3 {
+  margin: 0;
+  color: var(--text, #3e403c);
+  font-size: 1.12rem;
+  font-weight: 500;
+  letter-spacing: .035em;
+}
+
+.world-travel__visit-note {
+  margin: -.1rem 0 .9rem;
+  font-size: .9rem;
+}
+
+/* Place cards */
+.world-travel__places {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+
+.world-travel__place-card {
+  min-width: 0;
+  padding: .85rem .9rem .9rem;
+  border: 1px solid rgba(124,103,83,.13);
+  border-radius: 11px;
+  background:
+    linear-gradient(160deg, rgba(255,255,255,.12), rgba(112,121,135,.015)),
+    rgba(250,246,237,.43);
+}
+
+.world-travel__place-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: .75rem;
+}
+
+.world-travel__place-header h4 {
+  margin: 0;
+  color: var(--travel-moss-dark);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.world-travel__place-header p {
+  margin: .12rem 0 0;
+  color: var(--travel-ink);
+  font-size: .68rem;
+}
+
+.world-travel__place-note {
+  margin: .48rem 0 .15rem;
+  font-size: .83rem;
+}
+
+/* Photo postcards */
+.world-travel__photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.4rem, 1fr));
+  gap: .55rem;
+  margin-top: .75rem;
+}
+
+.world-travel__photo {
+  appearance: none;
+  position: relative;
+  overflow: hidden;
+  min-height: 6.3rem;
+  padding: .25rem .25rem 1.35rem;
+  border: 1px solid rgba(124,103,83,.16);
+  border-radius: 5px;
+  background: #fbf7ee;
+  box-shadow: 0 5px 13px rgba(74,63,49,.065);
+  cursor: zoom-in;
+  transform: rotate(-.25deg);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.world-travel__photo:nth-child(even) { transform: rotate(.25deg); }
+
+.world-travel__photo:hover {
+  transform: translateY(-2px) rotate(0);
+  box-shadow: 0 8px 18px rgba(74,63,49,.095);
+}
+
+.world-travel__photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.world-travel__photo span {
+  position: absolute;
+  left: .45rem;
+  right: .45rem;
+  bottom: .25rem;
+  overflow: hidden;
+  color: #6b6258;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: .62rem;
+  line-height: 1.2;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.world-travel__journal-empty {
+  margin: 1.2rem 0 0 3rem;
+  padding: .9rem 1rem;
+  border-left: 2px solid rgba(112,121,135,.22);
+  font-size: .88rem;
+}
+
+/* Country index */
+.world-travel__visited-section { margin-top: 1.5rem; }
+
+.world-travel__section-heading {
+  margin-bottom: 1rem;
+  padding-bottom: .65rem;
+  border-bottom: 1px solid var(--travel-line);
+}
+
+.world-travel__section-heading h2 {
+  margin: 0;
+  color: var(--text, #3e403c);
+  font-weight: 500;
+}
+
+.world-travel__section-heading p {
+  margin: .3rem 0 0;
+  color: var(--text-p3, var(--travel-muted));
+  font-size: .78rem;
+}
+
+.world-travel__country-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+  gap: .65rem;
+}
+
+.world-travel__country-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .55rem;
+  width: 100%;
+  padding: .68rem .75rem;
+  border: 1px solid var(--travel-line);
+  border-radius: 9px;
+  background: var(--card, var(--travel-paper));
+  color: var(--text, #3e403c);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .15s ease, background-color .15s ease, transform .15s ease;
+}
+
+.world-travel__country-chip:hover,
+.world-travel__country-chip.is-selected {
+  border-color: rgba(111,128,104,.3);
+  background: rgba(111,128,104,.055);
+  transform: translateY(-1px);
+}
+
+.world-travel__country-chip.is-selected {
+  box-shadow: inset 3px 0 0 var(--travel-wood);
+}
+
+.world-travel__country-chip small {
+  color: var(--text-p3, var(--travel-muted));
+  font-size: .63rem;
+  white-space: nowrap;
+}
+
+/* Lightbox */
+body.world-travel-lightbox-open { overflow: hidden; }
+
+.world-travel__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  place-items: center;
+  padding: 2rem;
+  background: rgba(24,26,22,.84);
+  backdrop-filter: blur(5px);
+}
+
+.world-travel__lightbox.is-open { display: grid; }
+
+.world-travel__lightbox figure {
+  margin: 0;
+  max-width: min(92vw, 72rem);
+  max-height: 88vh;
+  padding: .55rem .55rem 1rem;
+  border-radius: 7px;
+  background: #f8f3e8;
+  box-shadow: 0 24px 70px rgba(0,0,0,.32);
+}
+
+.world-travel__lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: 76vh;
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.world-travel__lightbox figcaption {
+  min-height: 1em;
+  padding: .65rem .45rem 0;
+  color: #655d54;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: .8rem;
+  text-align: center;
+}
+
+.world-travel__lightbox-close {
+  position: fixed;
+  top: 1rem;
+  right: 1.25rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  background: rgba(28,30,26,.58);
+  color: #f7f1e6;
+  font: 300 1.7rem/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+/* Dark mode */
+:root[data-theme="dark"] .world-travel {
+  --travel-paper: #28291f;
+  --travel-paper-deep: #33352a;
+  --travel-moss: #98a98f;
+  --travel-moss-dark: #bdc8b5;
+  --travel-wood: #b99a79;
+  --travel-wood-dark: #d0ae8c;
+  --travel-ink: #a8b0c0;
+  --travel-line: rgba(210,192,160,.14);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .world-travel {
+    --travel-paper: #28291f;
+    --travel-paper-deep: #33352a;
+    --travel-moss: #98a98f;
+    --travel-moss-dark: #bdc8b5;
+    --travel-wood: #b99a79;
+    --travel-wood-dark: #d0ae8c;
+    --travel-ink: #a8b0c0;
+    --travel-line: rgba(210,192,160,.14);
+  }
+}
+
+:root[data-theme="dark"] .world-travel__country { fill: #44463d; stroke: rgba(29,32,26,.85); }
+:root[data-theme="dark"] .world-travel__country:hover { fill: #55584d; }
+:root[data-theme="dark"] .world-travel__country.is-visited { fill: #879a80; }
+:root[data-theme="dark"] .world-travel__country.is-selected { fill: #9aab91; stroke: #a8b0c0; }
+:root[data-theme="dark"] .world-travel__tooltip { background: rgba(40,41,31,.96); color: #e7e0d2; }
+:root[data-theme="dark"] .world-travel__place-card { background: rgba(255,255,255,.018); }
+:root[data-theme="dark"] .world-travel__photo { background: #34352b; }
+:root[data-theme="dark"] .world-travel__photo span { color: #d4cbbc; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .world-travel__country { fill: #44463d; stroke: rgba(29,32,26,.85); }
+  :root:not([data-theme]) .world-travel__country:hover { fill: #55584d; }
+  :root:not([data-theme]) .world-travel__country.is-visited { fill: #879a80; }
+  :root:not([data-theme]) .world-travel__country.is-selected { fill: #9aab91; stroke: #a8b0c0; }
+  :root:not([data-theme]) .world-travel__tooltip { background: rgba(40,41,31,.96); color: #e7e0d2; }
+  :root:not([data-theme]) .world-travel__place-card { background: rgba(255,255,255,.018); }
+  :root:not([data-theme]) .world-travel__photo { background: #34352b; }
+  :root:not([data-theme]) .world-travel__photo span { color: #d4cbbc; }
+}
+
+/* Responsive */
+@media (max-width: 760px) {
+  .world-travel__stats { gap: .9rem; }
+  .world-travel__stat { flex-direction: column; gap: 0; align-items: center; text-align: center; }
+  .world-travel__stat-number { font-size: 1.5rem; }
+  .world-travel__stat-label { font-size: .7rem; }
+  .world-travel__places { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .world-travel__map-card { padding: .75rem .55rem .3rem; }
+  .world-travel__map-toolbar { align-items: flex-start; }
+  .world-travel__map-wrap,
+  .world-travel__map { min-height: 15rem; }
+  .world-travel__stats { gap: .55rem; }
+  .world-travel__stat-divider { height: 2rem; }
+  .world-travel__detail { padding: 1.05rem .95rem 1.2rem; }
+  .world-travel__timeline { margin-left: .65rem; padding-left: 1.35rem; }
+  .world-travel__visit-marker { left: -1.5rem; }
+  .world-travel__visit-header { align-items: flex-start; flex-direction: column; gap: .3rem; }
+  .world-travel__country-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .world-travel__country-chip { flex-direction: column; gap: .12rem; }
+  .world-travel__lightbox { padding: .8rem; }
+}
+
+/* Country flags */
+.world-travel__country-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.world-travel__country-flag {
+  flex: 0 0 auto;
+  width: 1.8rem;
+  height: auto;
+}
+
+.world-travel__country-title {
+  margin: 0;
+  text-align: left;
+}
+
+.world-travel__country-heading > * {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.world-travel__flag--title {
+  width: 2rem;
+  height: 1.34rem;
+}
+
+.world-travel__flag--small {
+  width: 1.18rem;
+  height: .79rem;
+}
+
+.world-travel__country-chip-name {
+  display: inline-flex;
+  align-items: center;
+  gap: .42rem;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .world-travel__flag--title {
+    width: 1.8rem;
+    height: 1.2rem;
+  }
+}

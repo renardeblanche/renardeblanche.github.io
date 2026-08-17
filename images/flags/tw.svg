@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Flag of Taiwan">
+  <rect width="900" height="600" fill="#fe0000"/>
+  <rect width="450" height="300" fill="#000095"/>
+  <g fill="#fff"><polygon points="225.0,74.0 220.0,102.3 230.0,102.3"/><polygon points="263.0,84.2 244.5,106.1 253.2,111.2"/><polygon points="290.8,112.0 263.8,121.8 268.9,130.5"/><polygon points="301.0,150.0 272.7,145.0 272.7,155.0"/><polygon points="290.8,188.0 268.9,169.5 263.8,178.2"/><polygon points="263.0,215.8 253.2,188.8 244.5,193.9"/><polygon points="225.0,226.0 230.0,197.7 220.0,197.7"/><polygon points="187.0,215.8 205.5,193.9 196.8,188.8"/><polygon points="159.2,188.0 186.2,178.2 181.1,169.5"/><polygon points="149.0,150.0 177.3,155.0 177.3,145.0"/><polygon points="159.2,112.0 181.1,130.5 186.2,121.8"/><polygon points="187.0,84.2 196.8,111.2 205.5,106.1"/><circle cx="225" cy="150" r="45"/></g>
+  <circle cx="225" cy="150" r="34" fill="#000095"/>
+  <circle cx="225" cy="150" r="27" fill="#fff"/>
+</svg>
