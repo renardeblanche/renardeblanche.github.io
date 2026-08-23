@@ -785,7 +785,7 @@ export const travelData = [
     ]
   },
   {
-    country: 'United Kindom',
+    country: 'United Kingdom',
 	code: 'GB',
     label: '英国',
     note: ' ',
