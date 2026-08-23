@@ -164,14 +164,40 @@ function showDetail(item) {
   detail.innerHTML = `
     <div class="world-travel__country-journal">
       <header class="world-travel__country-header">
-        <span class="world-travel__bookmark">旅</span>
-        <div class="world-travel__country-heading">
-          <p class="world-travel__detail-kicker">TRAVEL NOTEBOOK</p>
-          <h2 class="world-travel__country-title">${flagMarkup(item, 'title')}<span>${escapeHtml(item.label)}</span></h2>
-          <p class="world-travel__country-meta">${escapeHtml(countryMeta)}</p>
-          ${item.note ? `<p class="world-travel__country-note">${escapeHtml(item.note)}</p>` : ''}
-        </div>
-      </header>
+
+  <div class="world-travel__country-kicker">
+    <span class="world-travel__bookmark">旅</span>
+    <p class="world-travel__detail-kicker">
+      TRAVEL NOTEBOOK
+    </p>
+  </div>
+
+
+  <div class="world-travel__country-title">
+
+    ${flagMarkup(item, 'title')}
+
+    <div class="world-travel__country-name">
+      <h2>${escapeHtml(item.label)}</h2>
+      <p>${escapeHtml(item.country || '')}</p>
+    </div>
+
+  </div>
+
+
+  <p class="world-travel__country-meta">
+    ${escapeHtml(countryMeta)}
+  </p>
+
+
+  ${item.note 
+    ? `<p class="world-travel__country-note">
+        ${escapeHtml(item.note)}
+       </p>`
+    : ''
+  }
+
+</header>
       ${visits.length
         ? `<div class="world-travel__timeline">${visits.map(renderVisit).join('')}</div>`
         : `<div class="world-travel__journal-empty"><p>这个国家已经点亮，旅行日期、城市与照片还可以慢慢补进来。</p></div>`}

@@ -696,3 +696,92 @@ body.world-travel-lightbox-open { overflow: hidden; }
     height: 1.2rem;
   }
 }
+/* Fix country header layout */
+.world-travel__country-header {
+  display: block;
+}
+
+.world-travel__country-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .75rem;
+}
+
+.world-travel__country-heading h2 {
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  white-space: nowrap;
+}
+
+.world-travel__country-meta {
+  margin-top: .5rem;
+}
+
+/* ================================
+   Country title redesign
+================================ */
+
+
+.world-travel__country-header {
+  display:block;
+}
+
+
+.world-travel__country-kicker {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  margin-bottom:2.5rem;
+}
+
+
+.world-travel__detail-kicker {
+  margin:0;
+  letter-spacing:.25em;
+}
+
+
+.world-travel__country-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: fit-content;
+}
+
+.world-travel__country-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.world-travel__country-name h2 {
+    margin: 0;
+    white-space: nowrap;
+    writing-mode: horizontal-tb;
+}
+
+
+.world-travel__country-name p {
+    margin: .35rem 0 0;
+}
+
+
+.world-travel__country-meta {
+  margin-top:1.5rem;
+}
+
+
+.world-travel__country-note {
+  margin-top:.8rem;
+  max-width:40rem;
+}
+
+.world-travel__flag--title {
+    width: 2rem;
+    height: 1.35rem;
+    object-fit: cover;
+    border-radius: 2px;
+}

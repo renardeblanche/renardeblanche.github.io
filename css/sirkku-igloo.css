@@ -342,3 +342,37 @@ footer,
     box-sizing: border-box;
   }
 }
+
+/* ===== Stellar sidebar/link color override ===== */
+
+.sidebar a,
+.l_left a,
+.l_right a,
+.widget-wrapper a,
+.menubar a,
+.nav-area a {
+  color: var(--text-p1);
+}
+
+.sidebar a:hover,
+.l_left a:hover,
+.l_right a:hover,
+.widget-wrapper a:hover,
+.menubar a:hover,
+.nav-area a:hover {
+  color: var(--cabin-ink);
+}
+
+
+/* Recent posts */
+.widget-wrapper .post-list a,
+.widget-wrapper .post-list a:hover {
+  text-decoration: none;
+}
+
+
+/* Sidebar icons */
+.menubar svg,
+.nav-area svg {
+  color: currentColor;
+}
